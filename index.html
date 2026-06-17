@@ -245,6 +245,12 @@
         placeholder="Pesquisar estabelecimento..."
     />
 
+    <input
+        type="text"
+        id="pesquisaCategoria"
+        placeholder="Pesquisar categoria..."
+    />
+
     <select id="filtro">
 
         <option value="">
@@ -499,6 +505,12 @@
             .value
             .toLowerCase();
 
+        const textoCategoria =
+            document
+            .getElementById("pesquisaCategoria")
+            .value
+            .toLowerCase();
+
         const filtro =
             document
             .getElementById("filtro")
@@ -515,6 +527,12 @@
                 )
                 .toLowerCase();
 
+            const categoria =
+                String(
+                    est.Categoria || ""
+                )
+                .toLowerCase();
+
             const status =
                 String(
                     est.Licenciado || ""
@@ -525,12 +543,17 @@
             const pesquisaOK =
                 nome.includes(textoPesquisa);
 
+            const categoriaOK =
+                categoria.includes(textoCategoria);
+
             const statusOK =
                 filtro === ""
                 ? true
                 : status === filtro;
 
-            return pesquisaOK && statusOK;
+            return pesquisaOK &&
+                   categoriaOK &&
+                   statusOK;
         });
 
         atualizarDashboard(filtrados);
@@ -689,6 +712,15 @@
 
     document
         .getElementById("pesquisa")
+        .addEventListener(
+
+            "input",
+
+            () => carregarDados()
+        );
+
+    document
+        .getElementById("pesquisaCategoria")
         .addEventListener(
 
             "input",
