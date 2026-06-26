@@ -43,11 +43,63 @@
             background: #f1f5f9;
         }
 
-        header {
-            background: #0f172a;
-            color: white;
-            padding: 15px;
-        }
+        header{
+
+    background:#0f172a;
+
+    color:white;
+
+    height:60px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 15px;
+
+}
+
+.header-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+#btnMenu{
+
+    background:none;
+
+    border:none;
+
+    color:white;
+
+    font-size:26px;
+
+    cursor:pointer;
+
+}
+
+#btnOcultar{
+
+    background:#1e293b;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:8px 12px;
+
+    cursor:pointer;
+
+}
 
         header h2 {
             font-size: 22px;
@@ -197,21 +249,37 @@
 
     </style>
 
-</head>
+<header id="header">
 
-<body>
+    <div class="header-left">
 
-<header>
+        <button id="btnMenu">
 
-    <h2>
-        📍 Sistema Inteligente de Fiscalização
-    </h2>
+            ☰
+
+        </button>
+
+        <h2>
+
+            📍 Sistema Inteligente de Fiscalização
+
+        </h2>
+
+    </div>
+
+    <button id="btnOcultar">
+
+        ▲
+
+    </button>
 
 </header>
 
 <!-- DASHBOARD -->
 
-<div class="dashboard">
+<div
+    class="dashboard"
+    id="dashboard">
 
     <div class="card">
         <h3>Total</h3>
@@ -237,7 +305,9 @@
 
 <!-- BARRA -->
 
-<div class="toolbar">
+<div
+    class="toolbar"
+    id="toolbar">
 
     <input
         type="text"
@@ -740,7 +810,54 @@
     // =========================================
     // ATUALIZA AUTOMATICAMENTE
     // =========================================
+// =======================================
+// MINIMIZAR PAINEL
+// =======================================
 
+let painelAberto = true;
+
+document
+.getElementById("btnOcultar")
+.onclick = function(){
+
+    painelAberto = !painelAberto;
+
+    const dashboard =
+        document.getElementById("dashboard");
+
+    const toolbar =
+        document.getElementById("toolbar");
+
+    const mapa =
+        document.getElementById("map");
+
+    if(painelAberto){
+
+        dashboard.style.display="flex";
+
+        toolbar.style.display="flex";
+
+        mapa.style.height="calc(100vh - 210px)";
+
+        this.innerHTML="▲";
+
+    }
+
+    else{
+
+        dashboard.style.display="none";
+
+        toolbar.style.display="none";
+
+        mapa.style.height="calc(100vh - 60px)";
+
+        this.innerHTML="▼";
+
+    }
+
+    map.invalidateSize();
+
+};
     carregarDados();
 
     setInterval(
